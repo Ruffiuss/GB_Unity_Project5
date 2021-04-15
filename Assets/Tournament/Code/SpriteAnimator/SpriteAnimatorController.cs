@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Tournament
 {
-    internal sealed class SpriteAnimatorController : IDisposable
+    internal sealed class SpriteAnimatorController : IDisposable, IExecutable
     {
         #region Fields
 
@@ -64,7 +64,7 @@ namespace Tournament
             }
         }
 
-        internal void Execute(float deltaTime)
+        public void Execute(float deltaTime)
         {
             foreach (var animation in _activeAnimation)
             {

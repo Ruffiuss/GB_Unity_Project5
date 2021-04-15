@@ -15,7 +15,7 @@ namespace Tournament
         internal float Speed = 10.0f;
         internal float Counter = 0.0f;
         internal bool IsLooped = true;
-        internal bool IsSleeps = true;
+        internal bool IsSleeps = false;
 
 
         #endregion
