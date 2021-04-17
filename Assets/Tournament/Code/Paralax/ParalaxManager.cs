@@ -40,7 +40,7 @@ namespace Tournament
         public void Execute(float deltaTime)
         {
             _background.position = _backStartPosition + (_camera.position - _cameraStartPosition) * _COEF;
-            _mainSprites.position = _mainSpritesStartPosition + (_camera.position - _cameraStartPosition) * _COEF * 2;
+            _mainSprites.position = _mainSpritesStartPosition + (_camera.position - _cameraStartPosition) * (_COEF * 10);
         }
 
         #endregion
