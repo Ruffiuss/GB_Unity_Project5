@@ -16,6 +16,7 @@ namespace Tournament
         private SpriteAnimatorController _playerAnimator;
         private ControllerManager _controllerManager;
         private ParalaxManager _paralaxManager;
+        private PlayerTransformController _playerController;
 
         #endregion
 
@@ -32,8 +33,11 @@ namespace Tournament
             _playerAnimator = new SpriteAnimatorController(_playerConfig);
             _playerAnimator.StartAnimation(_playerView._spriteRenderer, AnimState.Run, true, _animationSpeed);
 
+            _playerController = new PlayerTransformController(_playerView, _playerAnimator);
+
             _controllerManager.AddController(_playerAnimator);
             _controllerManager.AddController(_paralaxManager);
+            _controllerManager.AddController(_playerController);
         }
 
         private void Update()
