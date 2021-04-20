@@ -12,11 +12,14 @@ namespace Tournament
         [SerializeField] private Transform _background;
         [SerializeField] private Transform _mainSprites;
         [SerializeField] private int _animationSpeed = 10;
+        [SerializeField] private CannonView _cannonView;
 
         private SpriteAnimatorController _playerAnimator;
         private ControllerManager _controllerManager;
         private ParalaxManager _paralaxManager;
         private PlayerTransformController _playerController;
+        private CannonAimController _cannonAimController;
+        private BulletsEmitterController _bulletsEmitterController;
 
         #endregion
 
@@ -35,9 +38,12 @@ namespace Tournament
 
             _playerController = new PlayerTransformController(_playerView, _playerAnimator);
 
+            _cannonAimController = new CannonAimController(_cannonView._muzzleTransform, _cannonView._emitterTransform);
+
             _controllerManager.AddController(_playerAnimator);
             _controllerManager.AddController(_paralaxManager);
             _controllerManager.AddController(_playerController);
+            _controllerManager.AddController(_cannonAimController);
         }
 
         private void Update()

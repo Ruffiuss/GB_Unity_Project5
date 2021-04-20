@@ -12,6 +12,7 @@ namespace Tournament
         [SerializeField] internal SpriteRenderer _spriteRenderer;
         [SerializeField] internal Collider2D _collider2D;
         [SerializeField] internal Rigidbody2D _rigidBody2D;
+        [SerializeField] internal TrailRenderer _trail;
 
         #endregion
     }
