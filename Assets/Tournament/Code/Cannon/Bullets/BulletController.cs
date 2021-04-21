@@ -62,7 +62,7 @@ namespace Tournament
             _velocity = velocity;
             var angle = Vector3.Angle(Vector3.left, _velocity);
             var axis = Vector3.Cross(Vector3.left, _velocity);
-            _view._transform.rotation = Quaternion.AngleAxis(angle, axis);
+            _view._transform.rotation = Quaternion.AngleAxis(angle -90, axis);
         }
 
         private bool IsGrounded()

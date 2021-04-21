@@ -47,7 +47,7 @@ namespace Tournament
             else
             {
                 _timeTillNextBullet = _delay;
-                _bullets[_currentIndex].Throw(_transform.position, _transform.up * _startSpeed);
+                _bullets[_currentIndex].Throw(_transform.position, _transform.right * _startSpeed);
                 _currentIndex++;
                 if (_currentIndex >= _bullets.Count) _currentIndex = 0;
             }

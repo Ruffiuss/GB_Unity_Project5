@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Tournament
 {
-    internal sealed class PlayerTransformController : IExecutable
+    internal sealed class PlayerTransformController : IExecutable, ITrackable
     {
         #region Fields
 
@@ -28,11 +28,26 @@ namespace Tournament
 
         #endregion
 
+
+        #region Properties
+
+        public event Action<Vector3> CurrentPosition;
+
+        #endregion
+
+
+        #region ClassLifeCycles
+
         public PlayerTransformController(LevelObjectView view, SpriteAnimatorController spriteAnimator)
         {
             _view = view;
             _spriteAnimator = spriteAnimator;
         }
+
+        #endregion
+
+
+        #region Methods
 
         public void Execute(float deltaTime)
         {
@@ -69,6 +84,8 @@ namespace Tournament
                 _yVelocity += _g * deltaTime;
                 _view._transform.position += Vector3.up * (deltaTime * _yVelocity);
             }
+
+            CurrentPosition.Invoke(_view.transform.position);
         }
 
         private void GoSideWay(float deltaTime)
@@ -81,5 +98,7 @@ namespace Tournament
         {
             return _view._transform.position.y <= _groundLevel + float.Epsilon && _yVelocity <= 0;
         }
+
+        #endregion
     }
 }
