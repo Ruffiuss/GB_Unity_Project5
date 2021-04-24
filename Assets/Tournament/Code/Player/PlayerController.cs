@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Tournament
 {
-    internal sealed class PlayerController : IFixedExecutable
+    internal sealed class PlayerController : IFixedExecutable, ITrackable
     {
         #region Fields
 
@@ -14,8 +14,6 @@ namespace Tournament
         private const float _JUMP_THRESH = 0.1f;
         private const float _MOVING_THRESH = 0.1f;
         private const float _FLY_THRESH = 1.0f;
-        private const float _GROUND_LEVEL = 0.05f;
-        private const float _GRAVITY = -10.0f;
 
         private LevelObjectView _view;
         private SpriteAnimatorController _spriteAnimator;
@@ -24,9 +22,10 @@ namespace Tournament
         private Vector3 _leftScale = new Vector3(-1, 1, 1);
         private Vector3 _rightScale = new Vector3(1, 1, 1);
 
-        private float _yVelocity = 0.0f;
         private float _xAxisInput;
         private bool _isJump;
+
+        public event Action<Vector3> CurrentPosition;
 
         #endregion
 
@@ -60,7 +59,7 @@ namespace Tournament
                 newVelocity = fixedDeltaTime * _WALK_SPEED * (_xAxisInput < 0 ? -1 : 1);
                 _view.transform.localScale = (_xAxisInput < 0 ? _leftScale : _rightScale);
             }
-            _view._rigidBody2D.velocity = _view._rigidBody2D.velocity.Change(_xAxisInput: newVelocity);
+            _view._rigidBody2D.velocity = _view._rigidBody2D.velocity.Change(x: newVelocity);
 
             if (_contactPoller.IsGrounded && _isJump && Mathf.Abs(_view._rigidBody2D.velocity.y) <= _JUMP_THRESH)
             {
@@ -75,6 +74,8 @@ namespace Tournament
             {
                 _spriteAnimator.StartAnimation(_view._spriteRenderer, AnimState.Jump, true, _ANIMATIONS_SPEED);
             }
+
+            CurrentPosition.Invoke(_view.transform.position);
         }
 
         #endregion

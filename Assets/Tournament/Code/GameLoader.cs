@@ -18,7 +18,7 @@ namespace Tournament
         private SpriteAnimatorController _playerAnimator;
         private ControllerManager _controllerManager;
         private ParalaxManager _paralaxManager;
-        private PlayerTransformController _playerController;
+        private PlayerController _playerController;
         private CannonAimController _cannonAimController;
         private BulletsEmitterController _bulletsEmitterController;
 
@@ -37,7 +37,7 @@ namespace Tournament
             _playerAnimator = new SpriteAnimatorController(_playerConfig);
             _playerAnimator.StartAnimation(_playerView._spriteRenderer, AnimState.Run, true, _animationSpeed);
 
-            _playerController = new PlayerTransformController(_playerView, _playerAnimator);
+            _playerController = new PlayerController(_playerView, _playerAnimator);
 
             _cannonAimController = new CannonAimController(_cannonView._muzzleTransform, _cannonView._emitterTransform, _playerController);
             _bulletsEmitterController = new BulletsEmitterController(_cannonView._bullets, _cannonView._emitterTransform);
@@ -56,7 +56,7 @@ namespace Tournament
 
         private void FixedUpdate()
         {
-            
+            _controllerManager.FixedExecute(Time.fixedDeltaTime);
         }
 
         #endregion

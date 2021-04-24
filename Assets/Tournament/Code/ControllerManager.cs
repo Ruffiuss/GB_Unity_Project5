@@ -50,6 +50,9 @@ namespace Tournament
                 case IExecutable executable:
                     _executables.Add(executable);
                     break;
+                case IFixedExecutable fixedExecutable:
+                    _fixedExecutables.Add(fixedExecutable);
+                    break;
                 default:
                     break;
             }
