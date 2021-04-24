@@ -46,8 +46,7 @@ namespace Tournament
         #region Methods
 
         public void FixedExecute(float fixedDeltaTime)
-        { 
-            /*
+        {            
             _isJump = Input.GetAxis("Vertical") > 0;
             _xAxisInput = Input.GetAxis("Horizontal");
             _contactPoller.Execute(fixedDeltaTime);
@@ -76,7 +75,6 @@ namespace Tournament
             {
                 _spriteAnimator.StartAnimation(_view._spriteRenderer, AnimState.Jump, true, _ANIMATIONS_SPEED);
             }
-            */
         }
 
         #endregion
