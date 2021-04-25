@@ -17,9 +17,9 @@ namespace Tournament
 
         #region ClassLifeCycles
 
-        internal PlayerInit(SpriteAnimatorConfig spriteAnimatorConfig, GameObject view, Transform spawnPosition)
+        internal PlayerInit(SpriteAnimatorConfig spriteAnimatorConfig, GameObject view, Vector3 spawnPosition)
         {
-            var player = Object.Instantiate(view, spawnPosition);
+            var player = Object.Instantiate(view, spawnPosition, Quaternion.identity);
 
             if (player.TryGetComponent(out LevelObjectView playerView))
             {
@@ -31,6 +31,16 @@ namespace Tournament
             Animator.StartAnimation(View._spriteRenderer, AnimState.Run, true, 20);
 
             Controller = new PlayerController(View, Animator);
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        internal void Respawn(Vector3 spawnPoint)
+        {
+            View._transform.position = spawnPoint;
         }
 
         #endregion
