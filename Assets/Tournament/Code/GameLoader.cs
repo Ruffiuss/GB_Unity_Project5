@@ -13,14 +13,17 @@ namespace Tournament
         [SerializeField] private Transform _background;
         [SerializeField] private Transform _mainSprites;
         [SerializeField] private CannonView _cannonView;
+        [SerializeField] private List<LevelObjectView> _coinList;
         [SerializeField] private int _animationSpeed = 10;
 
         private SpriteAnimatorController _playerAnimator;
+        private SpriteAnimatorController _coinAnimator;
         private ControllerManager _controllerManager;
         private ParalaxManager _paralaxManager;
         private PlayerController _playerController;
         private CannonAimController _cannonAimController;
         private BulletsEmitterController _bulletsEmitterController;
+        private CoinsManager _coinsManager;
 
         #endregion
 
@@ -42,11 +45,16 @@ namespace Tournament
             _cannonAimController = new CannonAimController(_cannonView._muzzleTransform, _cannonView._emitterTransform, _playerController);
             _bulletsEmitterController = new BulletsEmitterController(_cannonView._bullets, _cannonView._emitterTransform);
 
+            SpriteAnimatorConfig coinConfig = Resources.Load<SpriteAnimatorConfig>("AnimCoinConfig");
+            _coinAnimator = new SpriteAnimatorController(coinConfig);
+            _coinsManager = new CoinsManager(_playerView, _coinList, _coinAnimator);
+
             _controllerManager.AddController(_playerAnimator);
             _controllerManager.AddController(_paralaxManager);
             _controllerManager.AddController(_playerController);
             _controllerManager.AddController(_cannonAimController);
             _controllerManager.AddController(_bulletsEmitterController);
+            _controllerManager.AddController(_coinAnimator);
         }
 
         private void Update()
