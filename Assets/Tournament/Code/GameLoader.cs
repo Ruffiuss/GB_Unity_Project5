@@ -8,22 +8,19 @@ namespace Tournament
     {
         #region Fields
 
-        [SerializeField] private SpriteAnimatorConfig _playerConfig;
-        [SerializeField] private LevelObjectView _playerView;
         [SerializeField] private Transform _background;
         [SerializeField] private Transform _mainSprites;
+        [SerializeField] private Transform _playerSpawn;
         [SerializeField] private CannonView _cannonView;
         [SerializeField] private List<LevelObjectView> _coinList;
-        [SerializeField] private int _animationSpeed = 10;
 
-        private SpriteAnimatorController _playerAnimator;
         private SpriteAnimatorController _coinAnimator;
         private ControllerManager _controllerManager;
         private ParalaxManager _paralaxManager;
-        private PlayerController _playerController;
         private CannonAimController _cannonAimController;
         private BulletsEmitterController _bulletsEmitterController;
         private CoinsManager _coinsManager;
+        private ResourceLoader _configLoader;
 
         #endregion
 
@@ -32,26 +29,23 @@ namespace Tournament
 
         private void Awake()
         {
+            _configLoader = new ResourceLoader();
+
             _controllerManager = new ControllerManager();
+
+            var player = new PlayerInit(_configLoader.LoadConfig("AnimPlayerConfig"), _configLoader.LoadPrefab("Player"), _playerSpawn); 
 
             _paralaxManager = new ParalaxManager(Camera.main.transform, _background, _mainSprites);
 
-            _playerConfig = Resources.Load<SpriteAnimatorConfig>("AnimPlayerConfig");
-            _playerAnimator = new SpriteAnimatorController(_playerConfig);
-            _playerAnimator.StartAnimation(_playerView._spriteRenderer, AnimState.Run, true, _animationSpeed);
-
-            _playerController = new PlayerController(_playerView, _playerAnimator);
-
-            _cannonAimController = new CannonAimController(_cannonView._muzzleTransform, _cannonView._emitterTransform, _playerController);
+            _cannonAimController = new CannonAimController(_cannonView._muzzleTransform, _cannonView._emitterTransform, player.Controller);
             _bulletsEmitterController = new BulletsEmitterController(_cannonView._bullets, _cannonView._emitterTransform);
 
-            SpriteAnimatorConfig coinConfig = Resources.Load<SpriteAnimatorConfig>("AnimCoinConfig");
-            _coinAnimator = new SpriteAnimatorController(coinConfig);
-            _coinsManager = new CoinsManager(_playerView, _coinList, _coinAnimator);
+            _coinAnimator = new SpriteAnimatorController(_configLoader.LoadConfig("AnimCoinConfig"));
+            _coinsManager = new CoinsManager(player.View, _coinList, _coinAnimator);
 
-            _controllerManager.AddController(_playerAnimator);
+            _controllerManager.AddController(player.Animator);
+            _controllerManager.AddController(player.Controller);
             _controllerManager.AddController(_paralaxManager);
-            _controllerManager.AddController(_playerController);
             _controllerManager.AddController(_cannonAimController);
             _controllerManager.AddController(_bulletsEmitterController);
             _controllerManager.AddController(_coinAnimator);
