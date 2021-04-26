@@ -12,6 +12,7 @@ namespace Tournament
         [SerializeField] private Transform _mainSprites;
         [SerializeField] private Transform _playerSpawn;
         [SerializeField] private LevelObjectView _deathZone;
+        [SerializeField] private LevelObjectView _finishZone;
         [SerializeField] private CannonView _cannonView;
         [SerializeField] private List<LevelObjectView> _coinList;
 
@@ -46,6 +47,7 @@ namespace Tournament
             _coinsManager = new CoinsManager(_player.View, _coinList, _coinAnimator);
 
             _deathZone.OnLevelObjectContact += DeathZoneHandler;
+            _finishZone.OnLevelObjectContact += FinishZoneHandler;
 
             _controllerManager.AddController(_player.Animator);
             _controllerManager.AddController(_player.Controller);
@@ -75,6 +77,15 @@ namespace Tournament
             if (levelObjectView.gameObject.CompareTag("Player"))
             {
                 _player.Respawn(_playerSpawn.position);
+            }
+        }
+
+        private void FinishZoneHandler(LevelObjectView levelObjectView)
+        {
+
+            if (levelObjectView.gameObject.CompareTag("Player"))
+            {
+                Debug.Log($"This is the end now");
             }
         }
 
