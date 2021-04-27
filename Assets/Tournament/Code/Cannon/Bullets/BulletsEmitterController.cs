@@ -8,8 +8,8 @@ namespace Tournament
     {
         #region Fields
 
-        private const float _delay = 1;
-        private const float _startSpeed = 5;
+        private const float _delay = 1.0f;
+        private const float _startSpeed = 5.0f;
 
         private List<BulletController> _bullets = new List<BulletController>();
         private Transform _transform;
@@ -51,7 +51,6 @@ namespace Tournament
                 _currentIndex++;
                 if (_currentIndex >= _bullets.Count) _currentIndex = 0;
             }
-            _bullets.ForEach(b => b.Execute(deltaTime));
         }
 
         #endregion

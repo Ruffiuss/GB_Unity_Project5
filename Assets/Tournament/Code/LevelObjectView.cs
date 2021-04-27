@@ -14,6 +14,14 @@ namespace Tournament
         [SerializeField] internal Rigidbody2D _rigidBody2D;
         [SerializeField] internal TrailRenderer _trail;
 
+        internal Action<LevelObjectView> OnLevelObjectContact;
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            var levelObject = collision.gameObject.GetComponent<LevelObjectView>();
+            OnLevelObjectContact.Invoke(levelObject);
+        }
+
         #endregion
     }
 }
