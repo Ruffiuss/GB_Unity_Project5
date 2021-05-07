@@ -11,7 +11,7 @@ namespace Tournament
         [SerializeField] internal Transform _transform;
         [SerializeField] internal SpriteRenderer _spriteRenderer;
         [SerializeField] internal Collider2D _collider2D;
-        [SerializeField] internal Rigidbody2D _rigidBody2D;
+        [SerializeField] internal Rigidbody2D _rigidbody2D;
         [SerializeField] internal TrailRenderer _trail;
 
         internal Action<LevelObjectView> OnLevelObjectContact;

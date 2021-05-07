@@ -33,9 +33,9 @@ namespace Tournament
         {
             Active(false);
             _view._transform.position = position;
-            _view._rigidBody2D.velocity = Vector2.zero;
-            _view._rigidBody2D.angularVelocity = 0;
-            _view._rigidBody2D.AddForce(velocity, ForceMode2D.Impulse);
+            _view._rigidbody2D.velocity = Vector2.zero;
+            _view._rigidbody2D.angularVelocity = 0;
+            _view._rigidbody2D.AddForce(velocity, ForceMode2D.Impulse);
             Active(true);
         }
 

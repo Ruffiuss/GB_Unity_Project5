@@ -116,7 +116,7 @@ MonoBehaviour:
   _transform: {fileID: 4253950288260574420}
   _spriteRenderer: {fileID: 4253950288260574423}
   _collider2D: {fileID: 4253950288260574421}
-  _rigidBody2D: {fileID: 4253950288260574411}
+  _rigidbody2D: {fileID: 4253950288260574411}
   _trail: {fileID: 0}
 --- !u!50 &4253950288260574411
 Rigidbody2D:

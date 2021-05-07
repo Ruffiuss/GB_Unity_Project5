@@ -59,18 +59,18 @@ namespace Tournament
                 newVelocity = fixedDeltaTime * _WALK_SPEED * (_xAxisInput < 0 ? -1 : 1);
                 _view.transform.localScale = (_xAxisInput < 0 ? _leftScale : _rightScale);
             }
-            _view._rigidBody2D.velocity = _view._rigidBody2D.velocity.Change(x: newVelocity);
+            _view._rigidbody2D.velocity = _view._rigidbody2D.velocity.Change(x: newVelocity);
 
-            if (_contactPoller.IsGrounded && _isJump && Mathf.Abs(_view._rigidBody2D.velocity.y) <= _JUMP_THRESH)
+            if (_contactPoller.IsGrounded && _isJump && Mathf.Abs(_view._rigidbody2D.velocity.y) <= _JUMP_THRESH)
             {
-                _view._rigidBody2D.AddForce(Vector2.up * _JUMP_FORCE, ForceMode2D.Impulse);
+                _view._rigidbody2D.AddForce(Vector2.up * _JUMP_FORCE, ForceMode2D.Impulse);
             }
 
             if (_contactPoller.IsGrounded)
             {
                 _spriteAnimator.StartAnimation(_view._spriteRenderer, walks ? AnimState.Run : AnimState.Idle, true, _ANIMATIONS_SPEED);
             }
-            else if (Mathf.Abs(_view._rigidBody2D.velocity.y) > _FLY_THRESH)
+            else if (Mathf.Abs(_view._rigidbody2D.velocity.y) > _FLY_THRESH)
             {
                 _spriteAnimator.StartAnimation(_view._spriteRenderer, AnimState.Jump, true, _ANIMATIONS_SPEED);
             }

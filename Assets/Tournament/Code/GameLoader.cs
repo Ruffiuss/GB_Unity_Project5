@@ -24,6 +24,7 @@ namespace Tournament
         private CoinsManager _coinsManager;
         private ResourceLoader _resourcesLoader;
         private PlayerInit _player;
+        private CameraController _camera;
 
         #endregion
 
@@ -49,12 +50,15 @@ namespace Tournament
             _deathZone.OnLevelObjectContact += DeathZoneHandler;
             _finishZone.OnLevelObjectContact += FinishZoneHandler;
 
+            _camera = new CameraController(_player.Controller, Camera.main.transform);
+
             _controllerManager.AddController(_player.Animator);
             _controllerManager.AddController(_player.Controller);
             _controllerManager.AddController(_paralaxManager);
             _controllerManager.AddController(_cannonAimController);
             _controllerManager.AddController(_bulletsEmitterController);
             _controllerManager.AddController(_coinAnimator);
+            _controllerManager.AddController(_camera);
         }
 
         private void Update()
